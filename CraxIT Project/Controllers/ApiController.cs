@@ -1,4 +1,5 @@
 ﻿using CraxIT_Project.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,14 +67,12 @@ namespace CraxIT_Project.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.UserName
+                UserName = model.UserName,
+                Email = model.Email
             };
 
             userManager.CreateAsync(person, model.Password);
             return StatusCode(201);
         }
-
-
-
     }
 }

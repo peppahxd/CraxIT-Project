@@ -21,6 +21,18 @@ builder.Services.AddIdentity<Person, IdentityRole>()
                 .AddEntityFrameworkStores<Context>()
                 .AddDefaultTokenProviders();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllHeaders",
+          builder =>
+          {
+              builder.AllowAnyOrigin()
+                     .AllowAnyHeader()
+                     .AllowAnyMethod();
+          });
+});
+
+
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -45,7 +57,10 @@ if (app.Environment.IsDevelopment())
 {
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAllHeaders");
 
 app.UseAuthorization();
 app.UseAuthentication();

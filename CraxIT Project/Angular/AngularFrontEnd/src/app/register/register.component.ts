@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
 
+  userName = '';
   firstName = '';
   lastName = '';
   email = '';
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   processForm() {
 
 
-    var arr = [this.firstName, this.lastName, this.email, this.password, this.repeatPassword];
+    var arr = [this.userName, this.firstName, this.lastName, this.email, this.password, this.repeatPassword];
 
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].toString().length == 0) {
@@ -39,24 +40,30 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.service.Register(new RegisterModel(this.firstName, this.lastName, this.email, this.password)).subscribe();
+    var model = new RegisterModel(this.userName, this.firstName, this.lastName, this.email, this.password);
+
+    console.dir(model);
+    this.service.Register(model).subscribe(data => {
+      console.dir(data);
+    })
   }
 }
 
 
-
 class RegisterModel {
-  firstName : string;
-  lastName : string;
-  email: string;
-  password: string;
+  FirstName : string;
+  LastName: string;
+  UserName: string;
+  Email: string;
+  Password: string;
 
 
-  constructor(firstname: string, lastname: string, email: string, password: string) {
-    this.firstName = firstname;
-    this.lastName = lastname;
-    this.email = email;
-    this.password = password;
+  constructor(firstname: string, lastname: string, username: string, email: string, password: string) {
+    this.UserName = username;
+    this.FirstName = firstname;
+    this.LastName = lastname;
+    this.Email = email;
+    this.Password = password;
   }
 
 }

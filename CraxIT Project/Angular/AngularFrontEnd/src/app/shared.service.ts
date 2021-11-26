@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,12 +7,18 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
 
-  readonly url = "https://localhost:7201/api";
+  readonly url = "https://localhost:44366/api";
 
   constructor(private http: HttpClient) { }
 
 
-  Register(val:any){
-    return this.http.post(this.url + "/register", val);
+  Register(data: any) {
+    return this.http.post(this.url + "/register", data);
   }
+
+  Login(data: any) {
+    return this.http.post(this.url + "/login", data);
+  }
+
 }
+
