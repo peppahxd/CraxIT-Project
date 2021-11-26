@@ -2,6 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace CraxIT_Project.Controllers
 {
@@ -35,17 +40,15 @@ namespace CraxIT_Project.Controllers
             if (!ModelState.IsValid)
                 return StatusCode(400);
 
-            var person = Context.Persons.FirstOrDefault(x => x.UserName.Equals(model.Username));
+            var person = Context.Persons.FirstOrDefault(x => x.UserName.Equals(model.UserName));
             if (person == null)
                 return StatusCode(400);
 
 
-            var result = signInManager.CheckPasswordSignInAsync(person, model.Password, false);
-            if (result.IsCompletedSuccessfully)
+            var signIn = signInManager.CheckPasswordSignInAsync(person, model.Password, false);
+            if (signIn.Result.Succeeded)
             {
-                ///
-
-                return StatusCode(200); 
+                return Ok(person.Id); 
             }
 
             return StatusCode(400);
@@ -61,13 +64,16 @@ namespace CraxIT_Project.Controllers
 
             Person person = new Person
             {
-                FirstName = model.Firstname,
-                LastName = model.Lastname,
-                UserName = model.Username
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName
             };
 
             userManager.CreateAsync(person, model.Password);
             return StatusCode(201);
         }
+
+
+
     }
 }

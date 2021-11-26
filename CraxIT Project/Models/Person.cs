@@ -8,7 +8,7 @@ namespace CraxIT_Project.Models
 
         public string LastName { get; set; }
 
-        public Person() { }
+        public Person() {}
 
     }
 }
