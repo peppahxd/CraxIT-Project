@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { SharedService } from './shared.service';
+import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -23,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule
   ],
-  providers: [SharedService],
+  providers: [SharedService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div *ngIf="_router.url == '/login'">
+
+
+  <form (ngSubmit)="processForm()">
+    <br />
+    <h2>Login</h2>
+    <br />
+
+    <div style="width:80%; margin:auto">
+
+      <input type="text" name="userName" placeholder="User name" [(ngModel)]="userName" />
+
+      <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
+
+      <input type="submit" value="Login" style="margin-bottom:2vh" />
+    </div>
+
+  </form>
+
+
+ </div>

@@ -49,7 +49,7 @@ namespace CraxIT_Project.Controllers
             var signIn = signInManager.CheckPasswordSignInAsync(person, model.Password, false);
             if (signIn.Result.Succeeded)
             {
-                return Ok(person.Id); 
+                return new JsonResult(person.Id);
             }
 
             return StatusCode(400);
