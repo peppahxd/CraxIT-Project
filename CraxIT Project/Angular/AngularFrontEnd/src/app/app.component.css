@@ -1,0 +1,56 @@
+html, body {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+ul, ol {
+  margin-top: 0px;
+  list-style: none;
+  width: 60%;
+  text-align:center;
+}
+
+li {
+  display: inline;
+  margin-left:2vw;
+  margin-right:2vw;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size:2vh;
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 8vh;
+  background: #333;
+  position: relative;
+}
+
+  nav.title {
+    float: left;
+    width: 35%;
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+  }
+
+  nav.navbar {
+    float: right;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

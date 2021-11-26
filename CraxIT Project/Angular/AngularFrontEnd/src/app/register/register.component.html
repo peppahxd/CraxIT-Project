@@ -1,1 +1,37 @@
-<p>regizddzzdzdster works!</p>
+<div *ngIf="_router.url == '/register'">
+
+
+  <form (ngSubmit)="processForm()">
+    <br />
+    <h2>Register</h2>
+    <br />
+
+    <div style="width:80%; margin:auto">
+
+      <input type="text" name="email" placeholder="Email address" [(ngModel)]="email" />
+
+      <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
+
+      <input type="password" name="repeatPassword" placeholder="Repeat password" [(ngModel)]="repeatPassword" />
+
+      <div class="form-wrapper">
+        <div class="form-left">
+          <input type="text" name="firstName" placeholder="First name" style="width:90%" [(ngModel)]="firstName" />
+        </div>
+
+        <div class="form-right">
+          <input type="text" name="lastName" placeholder="Last name" style="width:90%" [(ngModel)]="lastName" />
+        </div>
+      </div>
+
+
+      <input type="submit" value="Register" style="margin-bottom:2vh" />
+    </div>
+  </form>
+
+
+
+
+
+
+</div>

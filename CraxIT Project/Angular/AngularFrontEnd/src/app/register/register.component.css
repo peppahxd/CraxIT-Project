@@ -1,0 +1,25 @@
+
+
+form {
+    margin:auto;
+    border:1px solid red;
+
+    width:20%;
+    margin-top:5vh;
+    text-align:center;
+}
+
+div.form-wrapper {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+  input {
+    width:100%;
+    padding-left:5px;
+    height:2.5vh;
+    font-size:1.8vh;
+    margin-top:2.5vh;
+  }
