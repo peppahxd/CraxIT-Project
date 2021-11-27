@@ -1,20 +1,21 @@
 
+<div *ngIf="(_router.url != '/login') && (_router.url != '/register')">
+
+  <table  #houseTable>
+    <button (click)="createHouse()" style="margin:auto">Create New</button>
+    <br />
+    <br />
+    <tbody *ngFor="let house of houses">
+      <tr>
+        <td style="width:10%">{{house.id}}</td>
+        <td style="width:50%">{{house.name}}</td>
+        <td style="width:30%">
+          <button (click)="editHouse(house.id)">Edit</button>
+        </td>
+      </tr>
+
+    </tbody>
 
 
-<table>
-  <button (click)="createHouse()" style="margin:auto">Create New</button>
-  <br />
-  <br />
-  <tbody *ngFor="let house of houses">
-    <tr>
-      <td style="width:10%">{{house.id}}</td>
-      <td style="width:50%">{{house.name}}</td>
-      <td style="width:30%">
-        <button (click)="editHouse(house.id)">Edit</button>
-      </td>
-    </tr>
-
-  </tbody>
-
-
-</table>
+  </table>
+</div>

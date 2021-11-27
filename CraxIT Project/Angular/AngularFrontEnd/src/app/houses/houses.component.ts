@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 })
 export class HousesComponent implements OnInit {
 
-  constructor(private cookie: CookieService, private service: SharedService, private router: Router) { }
+  constructor(private cookie: CookieService, private service: SharedService, public _router: Router) { }
 
   houses!: IHouse[];
+
 
   ngOnInit(): void {
     if (!this.validate())
