@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { SharedService } from 'src/app/shared.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'register-root',
@@ -9,7 +11,7 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
-  constructor(public _router: Router, private service: SharedService) { }
+  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) { }
 
     ngAfterViewInit(): void {}
 
@@ -40,30 +42,28 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    var model = new RegisterModel(this.userName, this.firstName, this.lastName, this.email, this.password);
+    var personDto: IPersonDto = {
+      FirstName : this.firstName,
+      LastName : this.lastName,
+      UserName : this.userName,
+      Email : this.email,
+      Password : this.password
+    }
 
-    console.dir(model);
-    this.service.Register(model).subscribe(data => {
-      console.dir(data);
+
+    this.service.Register(personDto).subscribe(data => {
+      this.cookie.set("id", data.toString(), 1);
+      this.app.ngOnInit();
+      this._router.navigate(["/"]);
     })
   }
 }
 
-
-class RegisterModel {
-  FirstName : string;
+export interface IPersonDto {
+  FirstName: string;
   LastName: string;
   UserName: string;
   Email: string;
   Password: string;
-
-
-  constructor(firstname: string, lastname: string, username: string, email: string, password: string) {
-    this.UserName = username;
-    this.FirstName = firstname;
-    this.LastName = lastname;
-    this.Email = email;
-    this.Password = password;
-  }
-
 }
+

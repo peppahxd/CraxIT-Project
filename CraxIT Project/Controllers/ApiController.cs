@@ -1,4 +1,6 @@
-﻿using CraxIT_Project.Models;
+﻿using AutoMapper;
+using CraxIT_Project.DTO;
+using CraxIT_Project.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,30 +20,30 @@ namespace CraxIT_Project.Controllers
         private UserManager<Person> userManager;
         private SignInManager<Person> signInManager;
         private Context Context;
+        private IMapper Mapper;
 
-        public ApiController(Context Context, UserManager<Person> userManager, SignInManager<Person> signInManager)
+        public ApiController(Context Context, UserManager<Person> userManager, SignInManager<Person> signInManager, IMapper mapper)
         {
             this.Context = Context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.Mapper = mapper;
 
         }
 
 
-
         [Route("login")]
         [HttpPost]
-        public IActionResult Login(LoginModel model)
+        public IActionResult Login(PersonDto personDto)
         {
-            if (!ModelState.IsValid)
-                return StatusCode(400);
+            var userName = Mapper.Map<Person>(personDto).UserName;
 
-            var person = Context.Persons.FirstOrDefault(x => x.UserName.Equals(model.UserName));
+            var person = Context.Persons.FirstOrDefault(x => x.UserName.Equals(userName));
             if (person == null)
                 return StatusCode(400);
 
 
-            var signIn = signInManager.CheckPasswordSignInAsync(person, model.Password, false);
+            var signIn = signInManager.CheckPasswordSignInAsync(person, personDto.Password, false);
             if (signIn.Result.Succeeded)
             {
                 return new JsonResult(person.Id);
@@ -53,21 +55,21 @@ namespace CraxIT_Project.Controllers
 
         [Route("register")]
         [HttpPost]
-        public IActionResult Register(RegisterModel model)
+        public async Task<IActionResult> Register(PersonDto personDto)
         {
             if (!ModelState.IsValid)
                 return StatusCode(400);
 
-            Person person = new Person
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Email = model.Email
-            };
 
-            userManager.CreateAsync(person, model.Password);
-            return StatusCode(201);
+            var person = Mapper.Map<Person>(personDto);
+
+            var result = await userManager.CreateAsync(person, personDto.Password);
+            if (result.Succeeded)
+                return new JsonResult(person.Id);
+            else
+                return StatusCode(400);
+
+
         }
 
 
@@ -79,9 +81,18 @@ namespace CraxIT_Project.Controllers
         }
 
         [Route("createHouse")]
-        [HttpPost] 
-        public IActionResult CreateHouse(House house)
+        [HttpPost]
+        public IActionResult CreateHouse(HouseDto houseDto)
         {
+            if (!this.ValidateUser(houseDto.privKey))
+                return StatusCode(400);
+
+            if (!ModelState.IsValid)
+                return StatusCode(400);
+
+
+            var house = Mapper.Map<House>(houseDto);
+
             this.Context.Houses.Add(house);
             this.Context.SaveChanges();
 
@@ -91,15 +102,30 @@ namespace CraxIT_Project.Controllers
 
         [Route("editHouse")]
         [HttpPut]
-        public IActionResult EditHouse(House house)
+        public IActionResult EditHouse(HouseDto houseDto)
         {
+            if (!this.ValidateUser(houseDto.privKey))
+                return StatusCode(400);
+
             if (!ModelState.IsValid)
                 return StatusCode(400);
+
+            var house = Mapper.Map<House>(houseDto);
 
             this.Context.Houses.Update(house);
             this.Context.SaveChanges();
 
             return StatusCode(200);
+        }
+
+
+        private bool ValidateUser(string privKey)
+        {
+            var person = this.Context.Persons.FirstOrDefault(x => x.Id.Equals(privKey));
+            if (person == null)
+                return false;
+
+            return true;
         }
     }
 }

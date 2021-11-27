@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'houses-root',
@@ -36,6 +37,7 @@ export class HousesComponent implements OnInit {
 
     var house: IHouse = {
       id: id,
+      privKey: this.cookie.get("id"),
       name: input!
     }
 
@@ -53,9 +55,13 @@ export class HousesComponent implements OnInit {
       return;
 
     var house: IHouse = {
-      id:0,
+      id: 0,
+      privKey: this.cookie.get("id"),
       name: input!
     }
+
+
+
 
     this.service.CreateHouse(house).subscribe(data => {
       this.ngOnInit();
@@ -74,6 +80,6 @@ export class HousesComponent implements OnInit {
 
 export interface IHouse {
   id: number;
+  privKey: string;
   name: string;
-
 }

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HousesComponent } from '../houses/houses.component';
+import { AppComponent } from '../app.component';
+import { IPersonDto } from '../register/register.component';
 
 @Component({
   selector: 'login-root',
@@ -11,7 +13,7 @@ import { HousesComponent } from '../houses/houses.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public _router: Router, private service: SharedService, private cookie: CookieService) { }
+  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) { }
 
   
 
@@ -26,22 +28,23 @@ export class LoginComponent implements OnInit {
     if (this.userName.length < 1 || this.password.length < 1)
       return;
 
-    this.service.Login(new LoginModel(this.userName, this.password)).subscribe(data => {
+    var personDto: IPersonDto = {
+      FirstName: '',
+      LastName: '',
+      Email: '',
+      UserName: this.userName,
+      Password: this.password
+    }
+
+    this.service.Login(personDto).subscribe(data => {
 
       this.cookie.set("id", data.toString(), 1);
+      this.app.ngOnInit();
       this._router.navigate(["/"]);
+      
     })
 
   }
 
 }
 
-class LoginModel {
-  UserName : string;
-  Password: string;
-
-  constructor(username : string, password : string) {
-    this.UserName = username;
-    this.Password = password;
-  }
-}

@@ -1,3 +1,4 @@
+using AutoMapper;
 using CraxIT_Project;
 using CraxIT_Project.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,7 +34,17 @@ builder.Services.AddCors(options =>
 });
 
 
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MapProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
+
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
