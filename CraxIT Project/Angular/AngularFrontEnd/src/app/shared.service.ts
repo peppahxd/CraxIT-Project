@@ -25,15 +25,11 @@ export class SharedService {
     return this.http.get<IHouse[]>(this.url + "/houses");
   }
 
-  RemoveHouse(data : any) {
-    return this.http.post(this.url + "/removeHouse", data);
+  EditHouse(data: IHouse) {
+    return this.http.put(this.url + "/editHouse", data);
   }
 
-  EditHouse(data: any) {
-    return this.http.post(this.url + "/editHouse", data);
-  }
-
-  CreateHouse(data: any) {
+  CreateHouse(data: IHouse) {
     return this.http.post(this.url + "/createHouse", data);
   }
 

@@ -2,7 +2,7 @@
 
 
 <table>
-  <button id="create" style="margin:auto">Create New</button>
+  <button (click)="createHouse()" style="margin:auto">Create New</button>
   <br />
   <br />
   <tbody *ngFor="let house of houses">
@@ -10,8 +10,7 @@
       <td style="width:10%">{{house.id}}</td>
       <td style="width:50%">{{house.name}}</td>
       <td style="width:30%">
-        <button ng-click="removeHouse({{house.id}})">Remove</button>
-        <button ng-click="editHouse({{house.id}})">Edit</button>
+        <button (click)="editHouse(house.id)">Edit</button>
       </td>
     </tr>
 

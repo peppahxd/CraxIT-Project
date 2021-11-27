@@ -82,13 +82,24 @@ namespace CraxIT_Project.Controllers
         [HttpPost] 
         public IActionResult CreateHouse(House house)
         {
-            if (!ModelState.IsValid)
-                return StatusCode(400);
-
             this.Context.Houses.Add(house);
             this.Context.SaveChanges();
 
             return StatusCode(201);
+        }
+
+
+        [Route("editHouse")]
+        [HttpPut]
+        public IActionResult EditHouse(House house)
+        {
+            if (!ModelState.IsValid)
+                return StatusCode(400);
+
+            this.Context.Houses.Update(house);
+            this.Context.SaveChanges();
+
+            return StatusCode(200);
         }
     }
 }
