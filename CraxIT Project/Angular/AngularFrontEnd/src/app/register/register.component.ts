@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SharedService } from 'src/app/shared.service';
@@ -13,9 +13,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) { }
 
-    ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { this.HideError(); }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { this.HideError();}
 
 
   userName = '';
@@ -26,21 +26,51 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   repeatPassword = '';
 
   processForm() {
-
-
     var arr = [this.userName, this.firstName, this.lastName, this.email, this.password, this.repeatPassword];
 
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].toString().length == 0) {
-        alert("Empty input");
+        this.AlertError("Not all inputs were filled in.");
         return;
       }
     }
 
-    if (this.password != this.repeatPassword) {
-      alert("passwords did not match");
+    if (this.email.indexOf('@') <= 0 || this.email.indexOf('.') <= 0) {
+      this.AlertError("A valid email is required");
       return;
     }
+
+
+    if (this.password != this.repeatPassword) {
+      this.AlertError("Passwords did not match");
+      return;
+    }
+
+    if (this.password.length <= 6) {
+      this.AlertError("Password must be longer than 6 characters");
+      return;
+    }
+
+    if (!this.hasNumber(this.password)) {
+      this.AlertError("Password does not have a number");
+      return;
+    }
+
+    var uppercase = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/;
+    if (!uppercase.test(this.password)) {
+      this.AlertError("Password does not have an uppercase");
+      return;
+    }
+
+
+    var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if (!format.test(this.password)) {
+      this.AlertError("Password does not have a special character");
+      return;
+    }
+
+
+
 
     var personDto: IPersonDto = {
       FirstName : this.firstName,
@@ -57,6 +87,23 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       this._router.navigate(["/"]);
     })
   }
+
+  @ViewChild("errormessage") errormessage!: ElementRef;
+
+  AlertError(msg: string) {
+    this.errormessage.nativeElement.innerHTML = msg;
+    this.errormessage.nativeElement.style.display = "block";
+  }
+
+  HideError() {
+    this.errormessage.nativeElement.style.display = 'none';
+    this.errormessage.nativeElement.innerHTML = "";
+  }
+
+  hasNumber(val : string) {
+    return /\d/.test(val);
+  }
+
 }
 
 export interface IPersonDto {
