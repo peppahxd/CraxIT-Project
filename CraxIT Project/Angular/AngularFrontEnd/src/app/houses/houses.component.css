@@ -1,0 +1,20 @@
+table {
+    margin:auto;
+    margin-top:8vh;
+    border:1px solid black;
+    width:30vw;
+}
+
+td {
+  font-size:2vh; 
+}
+
+tr:nth-child(1n+2) {
+    background:lightgrey;
+}
+
+button {
+    padding:5px;
+    margin-left:1vw;
+
+}

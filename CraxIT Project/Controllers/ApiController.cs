@@ -24,14 +24,9 @@ namespace CraxIT_Project.Controllers
             this.Context = Context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+
         }
 
-        [Route("houses")]
-        [HttpPost]
-        public IActionResult RetrieveHouses()
-        {
-            return Content("");
-        }
 
 
         [Route("login")]
@@ -72,6 +67,27 @@ namespace CraxIT_Project.Controllers
             };
 
             userManager.CreateAsync(person, model.Password);
+            return StatusCode(201);
+        }
+
+
+        [Route("houses")]
+        [HttpGet]
+        public IActionResult RetrieveHouses()
+        {
+            return new JsonResult(this.Context.Houses.ToList()); 
+        }
+
+        [Route("createHouse")]
+        [HttpPost] 
+        public IActionResult CreateHouse(House house)
+        {
+            if (!ModelState.IsValid)
+                return StatusCode(400);
+
+            this.Context.Houses.Add(house);
+            this.Context.SaveChanges();
+
             return StatusCode(201);
         }
     }
