@@ -1,9 +1,11 @@
 using AutoMapper;
 using CraxIT_Project;
 using CraxIT_Project.Models;
+using CraxIT_Project.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -33,7 +35,7 @@ builder.Services.AddCors(options =>
           });
 });
 
-
+builder.Services.AddScoped<DAOService>();
 
 var mapperConfig = new MapperConfiguration(mc =>
 {

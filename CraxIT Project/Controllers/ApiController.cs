@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CraxIT_Project.DTO;
 using CraxIT_Project.Models;
+using CraxIT_Project.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,11 +21,13 @@ namespace CraxIT_Project.Controllers
         private UserManager<Person> userManager;
         private SignInManager<Person> signInManager;
         private Context Context;
+        private DAOService Service;
         private IMapper Mapper;
 
-        public ApiController(Context Context, UserManager<Person> userManager, SignInManager<Person> signInManager, IMapper mapper)
+        public ApiController(Context Context, DAOService service, UserManager<Person> userManager, SignInManager<Person> signInManager, IMapper mapper)
         {
             this.Context = Context;
+            this.Service = service;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.Mapper = mapper;
@@ -77,7 +80,7 @@ namespace CraxIT_Project.Controllers
         [HttpGet]
         public IActionResult RetrieveHouses()
         {
-            return new JsonResult(this.Context.Houses.ToList()); 
+            return new JsonResult(this.Service.GetAll()); 
         }
 
         [Route("createHouse")]
@@ -92,9 +95,8 @@ namespace CraxIT_Project.Controllers
 
 
             var house = Mapper.Map<House>(houseDto);
-
-            this.Context.Houses.Add(house);
-            this.Context.SaveChanges();
+            
+            this.Service.Create(house);
 
             return StatusCode(201);
         }
@@ -112,8 +114,7 @@ namespace CraxIT_Project.Controllers
 
             var house = Mapper.Map<House>(houseDto);
 
-            this.Context.Houses.Update(house);
-            this.Context.SaveChanges();
+            this.Service.Update(house);
 
             return StatusCode(200);
         }

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraxIT Project", "CraxIT Project\CraxIT Project.csproj", "{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraxIT Project", "CraxIT Project\CraxIT Project.csproj", "{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{DF025E9C-B70A-403D-977F-955577C21699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF025E9C-B70A-403D-977F-955577C21699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF025E9C-B70A-403D-977F-955577C21699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF025E9C-B70A-403D-977F-955577C21699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF025E9C-B70A-403D-977F-955577C21699}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
