@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedService } from '../shared.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,11 +13,12 @@ import { IPersonDto } from '../register/register.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private houseComp: HousesComponent) {
+  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) {
 
     this._router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
+  @Output() reloadHouseComp = new EventEmitter<string>();
   
   ngOnInit(): void {}
 
@@ -41,7 +42,8 @@ export class LoginComponent implements OnInit {
 
       this.cookie.set("id", data.toString(), 1);
 
-      this.houseComp.reloadComponent();
+      this.app.ngOnInit();
+      this.app.reloadHouseComp();
 
     },
       (error) => {

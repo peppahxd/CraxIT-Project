@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild(LoginComponent) loginComp!: LoginComponent;
   @ViewChild(RegisterComponent) registerComp!: RegisterComponent;
+  @ViewChild(HousesComponent) houseComp!: HousesComponent;
 
   ngOnInit(): void {
     var cookie = this.cookie.get("id");
@@ -31,6 +32,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
   }
+
+
+  public reloadHouseComp() {
+    this.houseComp.ngOnInit();
+    this.router.navigate(['/']);
+  }
+
 
   Navigate(route: string) {
     switch (route) {
@@ -58,6 +66,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.loggedIn = false;
 
     this.ngOnInit();
+    this.houseComp.ngOnInit();
+    this.router.navigate(["/"]);
   }
 
 

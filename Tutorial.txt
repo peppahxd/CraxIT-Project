@@ -1,0 +1,4 @@
+************************* TUTORIAL *************************
+
+Om de ASP Web API server te runnen, moet in visual studio 'IIS Express' geselecteerd worden.
+Helaas kan ik dit niet via de CMD laten gebeuren, omdat als het project als .exe gerund wordt, cors dit niet toelaat

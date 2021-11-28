@@ -13,30 +13,25 @@ import { LoginComponent } from '../login/login.component';
 })
 export class HousesComponent implements OnInit, AfterViewInit {
 
-  constructor(private cookie: CookieService, private service: SharedService, public _router: Router) {
+  constructor(private cookie: CookieService, private service: SharedService, public _router: Router, public app: AppComponent) {
 
   }
 
   houses!: IHouse[];
 
   @ViewChild("houseTable") houseTable!: ElementRef;
-  @ViewChild("h1") h1!: ElementRef;
+  @ViewChild("header") header!: ElementRef;
 
   ngOnInit(): void {
     if (!this.cookie.check("id")) {
       return;
     }
 
+
     this.retrieveHouses();
   }
 
-  ngAfterViewInit(): void {
-
-    if (!this.cookie.check("id"))
-      this.houseTable!.nativeElement.remove();
-    else
-      this.h1!.nativeElement.remove();
-  }
+  ngAfterViewInit(): void {}
 
   reloadComponent() {
     this.ngOnInit();

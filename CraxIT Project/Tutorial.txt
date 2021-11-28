@@ -1,0 +1,9 @@
+************************* TUTORIAL *************************
+
+Om de ASP Web API server te runnen, moet in visual studio 'IIS Express' geselecteerd worden.
+Helaas kan ik dit niet via de CMD laten gebeuren, omdat als het project als .exe gerund wordt, CORS de REST tegen houdt. Hier heb ik geen oplossing aan kunnen toevoegen.
+
+
+Om Angular te laten werken, navigeer je naar CraxIT Project\Angular\
+Vervolgens doe je de command: ng serve --open
+

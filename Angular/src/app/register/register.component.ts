@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SharedService } from 'src/app/shared.service';
@@ -11,12 +11,13 @@ import { AppComponent } from '../app.component';
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
-  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) { }
+  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent, private changeDetector: ChangeDetectorRef) { }
 
-  ngAfterViewInit(): void { this.HideError(); }
+  ngAfterViewInit(): void {}
 
-  ngOnInit(): void { this.HideError();}
+  ngOnInit(): void {  }
 
+  errorOccured = false;
 
   userName = '';
   firstName = '';
@@ -39,7 +40,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       this.AlertError("A valid email is required");
       return;
     }
-
 
     if (this.password != this.repeatPassword) {
       this.AlertError("Passwords did not match");
@@ -83,14 +83,20 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     this.service.Register(personDto).subscribe(data => {
       this.cookie.set("id", data.toString(), 1);
+
       this.app.ngOnInit();
-      this._router.navigate(["/"]);
+      this.app.reloadHouseComp();
     })
   }
+
+
 
   @ViewChild("errormessage") errormessage!: ElementRef;
 
   AlertError(msg: string) {
+    this.errorOccured = true;
+    this.changeDetector.detectChanges();
+
     if (this.errormessage == null)
       return;
 
