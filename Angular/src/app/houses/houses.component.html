@@ -1,0 +1,24 @@
+<div *ngIf="_router.url == '/'">
+
+
+    <h1 #h1 style="text-align: center; margin-top:5vh">Please <a href="/register">register</a> or <a href="/login">login</a> to access this page.</h1>
+
+
+    <table #houseTable>
+      <button (click)="createHouse()" style="margin:auto">Create New</button>
+      <br />
+      <br />
+      <tbody *ngFor="let house of houses">
+        <tr>
+          <td style="width:10%">{{house.id}}</td>
+          <td style="width:50%">{{house.name}}</td>
+          <td style="width:30%">
+            <button (click)="editHouse(house.id)">Edit</button>
+          </td>
+        </tr>
+
+      </tbody>
+
+
+    </table>
+  </div>

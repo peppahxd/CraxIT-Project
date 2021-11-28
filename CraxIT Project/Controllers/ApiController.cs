@@ -78,8 +78,13 @@ namespace CraxIT_Project.Controllers
 
         [Route("houses")]
         [HttpGet]
-        public IActionResult RetrieveHouses()
+        public IActionResult RetrieveHouses(string privKey)
         {
+            var person = Context.Persons.FirstOrDefault(x => x.Id.Equals(privKey));
+            if (person == null)
+                return StatusCode(400);
+
+
             return new JsonResult(this.Service.GetAll()); 
         }
 

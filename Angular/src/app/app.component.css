@@ -5,6 +5,10 @@ html, body {
   padding-top: 0;
 }
 
+a {
+    cursor: pointer;
+}
+
 ul, ol {
   margin-top: 0px;
   list-style: none;

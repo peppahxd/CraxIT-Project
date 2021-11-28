@@ -26,7 +26,7 @@ import { HousesComponent } from './houses/houses.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [SharedService, CookieService],
+  providers: [SharedService, CookieService, HousesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

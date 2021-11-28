@@ -1,0 +1,23 @@
+<nav>
+  <nav class="title">
+    <a (click)="Navigate('')">CraxIT Project</a>
+  </nav>
+
+  <nav class="navbar">
+    <ul>
+      <li *ngIf="!loggedIn"><a (click)="Navigate('login')">Login</a></li>
+      <li *ngIf="!loggedIn"><a (click)="Navigate('register')">Register</a></li>
+      <li *ngIf="loggedIn"><a  (click)="Logout()">Logout</a></li>
+    </ul>
+  </nav>
+</nav>
+
+
+<register-root>
+</register-root>
+
+<login-root>
+</login-root>
+
+<houses-root>
+</houses-root>

@@ -5,7 +5,14 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraxIT Project", "CraxIT Project\CraxIT Project.csproj", "{A63F9F70-FB77-4F30-A255-C3DC3C599CE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{DF025E9C-B70A-403D-977F-955577C21699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{DF025E9C-B70A-403D-977F-955577C21699}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Angular", "Angular\Angular.esproj", "{A7A579AB-9DDA-4A47-A238-57629D812258}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{807A04E6-3B9F-40E7-A273-AD0F0862EDA8}"
+	ProjectSection(SolutionItems) = preProject
+		Tutorial.txt = Tutorial.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,12 @@ Global
 		{DF025E9C-B70A-403D-977F-955577C21699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF025E9C-B70A-403D-977F-955577C21699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF025E9C-B70A-403D-977F-955577C21699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7A579AB-9DDA-4A47-A238-57629D812258}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

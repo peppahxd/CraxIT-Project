@@ -1,31 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { RegisterComponent } from '../register/register.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'houses-root',
   templateUrl: './houses.component.html',
-  styleUrls: ['./houses.component.css']
+  styleUrls: ['./houses.component.css'],
 })
-export class HousesComponent implements OnInit {
+export class HousesComponent implements OnInit, AfterViewInit {
 
-  constructor(private cookie: CookieService, private service: SharedService, public _router: Router) { }
+  constructor(private cookie: CookieService, private service: SharedService, public _router: Router) {
+
+  }
 
   houses!: IHouse[];
 
+  @ViewChild("houseTable") houseTable!: ElementRef;
+  @ViewChild("h1") h1!: ElementRef;
 
   ngOnInit(): void {
-    if (!this.validate())
+    if (!this.cookie.check("id")) {
       return;
+    }
 
-    this.service.RetrieveHouses().subscribe(data => {
-      this.houses = data;
-    })
+    this.retrieveHouses();
   }
 
+  ngAfterViewInit(): void {
 
+    if (!this.cookie.check("id"))
+      this.houseTable!.nativeElement.remove();
+    else
+      this.h1!.nativeElement.remove();
+  }
+
+  reloadComponent() {
+    this.ngOnInit();
+    this._router.navigate(["/"]);
+  }
+  
+  retrieveHouses() : void {
+
+    this.service.RetrieveHouses(this.cookie.get("id")).subscribe(res => {
+
+      console.dir(res);
+
+      this.houses = res.body as IHouse[];
+    })
+  }
 
   editHouse(id: number) {
     if (!this.validate())

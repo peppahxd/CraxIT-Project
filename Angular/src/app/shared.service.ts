@@ -21,8 +21,8 @@ export class SharedService {
     return this.http.post(this.url + "/login", data);
   }
 
-  RetrieveHouses() {
-    return this.http.get<IHouse[]>(this.url + "/houses");
+  RetrieveHouses(id : string) {
+    return this.http.get(this.url + "/houses?privKey=" + id, {observe: 'response'});
   }
 
   EditHouse(data: IHouse) {

@@ -91,11 +91,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   @ViewChild("errormessage") errormessage!: ElementRef;
 
   AlertError(msg: string) {
+    if (this.errormessage == null)
+      return;
+
     this.errormessage.nativeElement.innerHTML = msg;
     this.errormessage.nativeElement.style.display = "block";
   }
 
   HideError() {
+    if (this.errormessage == null)
+      return;
+
     this.errormessage.nativeElement.style.display = 'none';
     this.errormessage.nativeElement.innerHTML = "";
   }

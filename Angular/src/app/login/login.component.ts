@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { SharedService } from '../shared.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HousesComponent } from '../houses/houses.component';
@@ -13,12 +13,13 @@ import { IPersonDto } from '../register/register.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) { }
+  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private houseComp: HousesComponent) {
+
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   
-
   ngOnInit(): void {}
-
 
 
   userName = '';
@@ -39,12 +40,13 @@ export class LoginComponent implements OnInit {
     this.service.Login(personDto).subscribe(data => {
 
       this.cookie.set("id", data.toString(), 1);
-      this.app.ngOnInit();
-      this._router.navigate(["/"]);
-      
-    })
 
+      this.houseComp.reloadComponent();
+
+    },
+      (error) => {
+        alert("Username or password does not match");
+      } )
   }
-
 }
 
