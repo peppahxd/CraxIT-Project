@@ -1,4 +1,14 @@
 ************************* TUTORIAL *************************
 
+- ASP Web API
 Om de ASP Web API server te runnen, moet in visual studio 'IIS Express' geselecteerd worden.
-Helaas kan ik dit niet via de CMD laten gebeuren, omdat als het project als .exe gerund wordt, cors dit niet toelaat
+Helaas kan ik dit niet via de CMD laten gebeuren, omdat als het project als .exe gerund wordt, CORS dit niet toelaat. Via IIS Express is dit geen probleem.
+
+
+- Angular
+Om het Angular project te runnen, moet er genavigeerd worden naar CraxIT Project/Angular/
+Vervolgens moeten de volgende commands uitgevoerd worden:
+npm install
+ng serve --open
+
+
