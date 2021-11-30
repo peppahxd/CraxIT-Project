@@ -1,24 +1,23 @@
-<div *ngIf="_router.url == '/'">
+<div *ngIf="router.url == '/'">
+
+  <h1 *ngIf="!app.loggedIn" style="text-align: center; margin-top:5vh">Please <a style="color:darkblue" (click)="router.navigate(['register'])">register</a> or <a style="color:darkblue" (click)="router.navigate(['login'])">login</a> to access this page.</h1>
 
 
-    <h1 #header *ngIf="!app.loggedIn" style="text-align: center; margin-top:5vh">Please <a style="color:darkblue" (click)="app.Navigate('register')">register</a> or <a style="color:darkblue" (click)="app.Navigate('login')">login</a> to access this page.</h1>
+  <table *ngIf="app.loggedIn">
+    <button (click)="createHouse()" style="margin:auto">Create New</button>
+    <br />
+    <br />
+    <tbody *ngFor="let house of houses">
+      <tr>
+        <td style="width:10%">{{house.id}}</td>
+        <td style="width:50%">{{house.name}}</td>
+        <td style="width:30%">
+          <button (click)="editHouse(house.id)">Edit</button>
+        </td>
+      </tr>
+
+    </tbody>
 
 
-    <table #houseTable *ngIf="app.loggedIn">
-      <button (click)="createHouse()" style="margin:auto">Create New</button>
-      <br />
-      <br />
-      <tbody *ngFor="let house of houses">
-        <tr>
-          <td style="width:10%">{{house.id}}</td>
-          <td style="width:50%">{{house.name}}</td>
-          <td style="width:30%">
-            <button (click)="editHouse(house.id)">Edit</button>
-          </td>
-        </tr>
-
-      </tbody>
-
-
-    </table>
-  </div>
+  </table>
+</div>

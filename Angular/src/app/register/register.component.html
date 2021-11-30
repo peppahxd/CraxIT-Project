@@ -29,7 +29,8 @@
 
       <input type="submit" value="Register" style="margin-bottom:2vh" />
 
-      <div #errormessage *ngIf="errorOccured == true" style="width: 100%; min-height:5vh; margin-bottom:2vh; color:white;border: 1px solid red; background: #FF7F7F">
+      <div *ngIf="errorMessage != ''" style="width: 100%; min-height:5vh; margin-bottom:2vh; color:white;border: 1px solid red; background: #FF7F7F">
+        {{errorMessage}}
       </div>
     </div>
   </form>

@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { HousesComponent } from './houses/houses.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -10,63 +9,23 @@ import { RegisterComponent } from './register/register.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'CraxIT';
-  loggedIn!: boolean;
+  loggedIn = false;
+ 
 
-  constructor(private router: Router, private cookie: CookieService) { }
+  constructor(public router: Router) { }
 
   @ViewChild(LoginComponent) loginComp!: LoginComponent;
   @ViewChild(RegisterComponent) registerComp!: RegisterComponent;
   @ViewChild(HousesComponent) houseComp!: HousesComponent;
 
-  ngOnInit(): void {
-    var cookie = this.cookie.get("id");
+  ngOnInit(): void {}
 
-    if (cookie == null || cookie == "") {
-      this.loggedIn = false;
-    }
-    else
-      this.loggedIn = true;
-  }
-
-  ngAfterViewInit(): void {
-  }
-
-
-  public reloadHouseComp() {
-    this.houseComp.ngOnInit();
-    this.router.navigate(['/']);
-  }
-
-
-  Navigate(route: string) {
-    switch (route) {
-      case "login": {
-        this.loginComp.ngOnInit();
-        break;
-      }
-
-      case "register": {
-        this.registerComp.ngOnInit();
-        break;
-      }
-
-      case "": {
-        this.ngOnInit();
-        break;
-      }
-    }
-
-    this.router.navigate(["/" + route]);
-  }
 
   Logout() {
-    this.cookie.delete("id");
+    localStorage.setItem("privKey", "")!
     this.loggedIn = false;
-
-    this.ngOnInit();
-    this.houseComp.ngOnInit();
     this.router.navigate(["/"]);
   }
 

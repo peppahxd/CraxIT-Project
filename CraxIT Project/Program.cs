@@ -35,7 +35,10 @@ builder.Services.AddCors(options =>
           });
 });
 
-builder.Services.AddScoped<DAOService>();
+builder.Services.AddScoped<CRUDService>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<RegisterService>();
+builder.Services.AddScoped<HouseService>();
 
 var mapperConfig = new MapperConfiguration(mc =>
 {

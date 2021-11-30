@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { SharedService } from '../shared.service';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HousesComponent } from '../houses/houses.component';
 import { AppComponent } from '../app.component';
-import { IPersonDto } from '../register/register.component';
+import { IPersonDto } from '../DTO/IPersonDto';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'login-root',
@@ -13,19 +12,14 @@ import { IPersonDto } from '../register/register.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public _router: Router, private service: SharedService, private cookie: CookieService, private app: AppComponent) {
-
-    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
-
-  @Output() reloadHouseComp = new EventEmitter<string>();
+  constructor(public _router: Router, private loginService: LoginService, private app: AppComponent) {}
   
   ngOnInit(): void {}
 
-
   userName = '';
   password = '';
-  processForm() {
+
+  processForm() : void {
 
     if (this.userName.length < 1 || this.password.length < 1)
       return;
@@ -37,18 +31,9 @@ export class LoginComponent implements OnInit {
       UserName: this.userName,
       Password: this.password
     }
-
-    this.service.Login(personDto).subscribe(data => {
-
-      this.cookie.set("id", data.toString(), 1);
-
-      this.app.ngOnInit();
-      this.app.reloadHouseComp();
-
-    },
-      (error) => {
-        alert("Username or password does not match");
-      } )
+    
+    this.loginService.Init(this.app.houseComp);
+    this.loginService.Login(personDto);
   }
 }
 

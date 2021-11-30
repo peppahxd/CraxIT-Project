@@ -1,15 +1,12 @@
 <nav>
-
-  
-
   <nav class="title">
-    <a (click)="Navigate('')">CraxIT Project</a>
+    <a (click)="router.navigate([''])">CraxIT Project</a>
   </nav>
 
   <nav class="navbar">
     <ul>
-      <li *ngIf="!loggedIn"><a (click)="Navigate('login')">Login</a></li>
-      <li *ngIf="!loggedIn"><a (click)="Navigate('register')">Register</a></li>
+      <li *ngIf="!loggedIn"><a (click)="router.navigate(['login'])">Login</a></li>
+      <li *ngIf="!loggedIn"><a (click)="router.navigate(['register'])">Register</a></li>
       <li *ngIf="loggedIn"><a (click)="Logout()">Logout</a></li>
     </ul>
   </nav>

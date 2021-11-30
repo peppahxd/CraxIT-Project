@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { SharedService } from './shared.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HousesComponent } from './houses/houses.component';
+import { RegisterService } from './register.service';
+import { LoginService } from './login.service';
+import { HousesService } from './houses.service';
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import { HousesComponent } from './houses/houses.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [SharedService, CookieService, AppComponent],
+  providers: [RegisterService, LoginService, HousesService, CookieService, AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
